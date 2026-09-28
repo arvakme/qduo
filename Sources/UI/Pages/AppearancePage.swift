@@ -40,6 +40,21 @@ struct AppearancePage: View {
             } label: {
                 iconLabel("circle.hexagongrid", .indigo, L("popbar.style.label"))
             }
+            // Material of the rectangular chrome. Shown for every style because
+            // the result panel is rectangular whichever shape the actions take.
+            LabeledContent {
+                Picker("", selection: Binding(get: { store.capsuleMaterial },
+                                              set: { store.setCapsuleMaterial($0) })) {
+                    Text(L("popbar.material.classic")).tag(CapsuleMaterial.classic)
+                    Text(L("popbar.material.glass")).tag(CapsuleMaterial.glass)
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .frame(maxWidth: 220)
+                .disabled(!LiquidGlassSupport.isAvailable)
+            } label: {
+                iconLabel("rectangle.roundedtop", .indigo, L("popbar.material.label"))
+            }
             // The wheel and liquid-glass styles share these geometry/content knobs;
             // the capsule has none of them.
             if store.style.isWheel {

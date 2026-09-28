@@ -262,6 +262,7 @@ final class PopBarPanel {
         // Pick up the current presentation style for this show (capsule vs wheel).
         // Read here so toggling it in settings affects the next popup/preview.
         model.style = PopBarPreferences.style
+        model.chromeGlass = PopBarPreferences.capsuleMaterial == .glass && LiquidGlassSupport.isAvailable
         model.wheelLayout = PopBarPreferences.wheelLayout   // user-adjustable radii + icon/label toggles
         model.autoHideOnExitRing = PopBarPreferences.wheelAutoHideOnExit   // wheel: hide when pointer leaves the ring
         // Pick up the current auto-expand preference for this show (the user may

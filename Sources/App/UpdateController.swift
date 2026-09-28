@@ -12,13 +12,23 @@ import Sparkle
 /// but only for user-initiated checks so scheduled background reminders stay gentle.
 final class UpdateController: NSObject, SPUStandardUserDriverDelegate {
 
-    private var updaterController: SPUStandardUpdaterController!
+    /// FORK: this is a personal build of QDuo. Upstream's appcast would offer the
+    /// official release and Sparkle would replace this build with it, so the
+    /// updater is never created: no scheduled checks, no background download, and
+    /// "Check for Updates…" is disabled (both menu and About page key off
+    /// `canCheckForUpdates`). Update by pulling upstream and rebuilding instead —
+    /// see "Fork notes" in the README. Info.plist also ships an empty feed URL
+    /// and automatic checks off, so flipping this alone would still find nothing.
+    static let updatesDisabledInFork = true
+
+    private var updaterController: SPUStandardUpdaterController?
 
     private var userInitiatedSession = false
     private var raiseTimer: Timer?
 
     override init() {
         super.init()
+        if Self.updatesDisabledInFork { return }
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: nil,
@@ -27,6 +37,7 @@ final class UpdateController: NSObject, SPUStandardUserDriverDelegate {
     }
 
     @objc func checkForUpdates(_ sender: Any?) {
+        guard let updaterController else { return }
         userInitiatedSession = canCheckForUpdates
         updaterController.checkForUpdates(sender)
         if userInitiatedSession {
@@ -35,7 +46,7 @@ final class UpdateController: NSObject, SPUStandardUserDriverDelegate {
     }
 
     var canCheckForUpdates: Bool {
-        updaterController.updater.canCheckForUpdates
+        updaterController?.updater.canCheckForUpdates ?? false
     }
 
     // MARK: - SPUStandardUserDriverDelegate

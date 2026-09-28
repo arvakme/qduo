@@ -276,6 +276,16 @@ final class PopBarController {
         Self.log.info("showing preview capsule at \(anchor)")
     }
 
+    /// FORK: the preview capsule, then a sample result in it — for looking at the
+    /// result chrome without running an action. `--popbar-preview-result`.
+    func showPreviewResult() {
+        showPreview()
+        let sample = "**Liquid Glass** result preview\n\nA sample answer, so the result chrome can be looked at without running an action. `code` and lists:\n\n- first item\n- second item"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [windows] in
+            windows.previewTransientResult(sample)
+        }
+    }
+
     /// Anchor the preview popup dead centre of the screen the settings window is
     /// on — the same spot every time, on the display being looked at.
     ///

@@ -1,3 +1,19 @@
+> ## Fork notes (arvakme/qduo, branch `liquid-glass-capsule`)
+>
+> A personal build of [XueshiQiao/qduo](https://github.com/XueshiQiao/qduo). Not an official release.
+>
+> **What changed**
+> - New setting `popup.capsuleMaterial`: `"classic"` (default, upstream's `.menu` blur) or `"glass"` — the capsule bar, its group dropdowns and the loading/result panel are drawn in the real system Liquid Glass (`.glassEffect` in a continuous rounded rectangle) on macOS 26+, falling back to classic on older systems. Also in Settings → Appearance → Capsule material, and in the generated `config.schema.json`. See `Sources/PopBar/Window/PopupChrome.swift`.
+>   - Clicks: a near-invisible fill in exactly the chrome's shape gives the window real pixels to hit, so clicks do not fall through the server-composited glass.
+>   - Dark mode: read from the raw `AppleInterfaceStyle` (the glass window is promoted to a light appearance), with a dark scrim and the content's colour scheme pinned back to dark.
+> - Auto-update is **disabled**: Sparkle is never started (`UpdateController.updatesDisabledInFork`), the feed URL is empty and automatic checks are off, so this build can never "update" itself back to the official app. "Check for Updates…" is greyed out.
+> - `--popbar-preview-result` launch flag shows a sample result panel.
+> - Local builds drop the restricted `keychain-access-groups` entitlement (`Supporting/App-fork.entitlements`), so API keys live in the login keychain instead.
+>
+> **Rebuild / install:** `scripts/build-fork.sh` (Release, signed with the first Apple Development identity, else ad-hoc) → `build/fork/QDuo.app`; `scripts/build-fork.sh --install` also quits QDuo, replaces `/Applications/QDuo.app` and relaunches. Needs Xcode 26+ and `brew install xcodegen`.
+>
+> **Sync with upstream:** `git fetch upstream && git rebase upstream/main`, then rebuild.
+
 <h1 align="center">
   <img src="./docs/assets/icon.png" alt="QDuo" width="96" /><br/>
   QDuo

@@ -47,7 +47,9 @@
     <string>$(SU_FEED_URL)</string>
     <key>SUPublicEDKey</key>
     <string>7AB7NTLWxbw7/9v7IMP4IUpI3kIzYfYqn8xiQnyUHiA=</string>
+    <!-- FORK: automatic checks off; the updater is not even started (see
+         UpdateController.updatesDisabledInFork) and the feed URL is empty. -->
     <key>SUEnableAutomaticChecks</key>
-    <true/>
+    <false/>
 </dict>
 </plist>

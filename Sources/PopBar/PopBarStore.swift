@@ -9,6 +9,7 @@ final class PopBarStore: ObservableObject {
     @Published var autoExpandHeight: Bool
     @Published var resultFontSize: Double
     @Published var style: PopBarStyle
+    @Published var capsuleMaterial: CapsuleMaterial
     @Published var wheelOuterRadius: Double
     @Published var wheelInnerRadius: Double
     @Published var wheelShowIcons: Bool
@@ -38,6 +39,7 @@ final class PopBarStore: ObservableObject {
         self.autoExpandHeight = PopBarPreferences.autoExpandHeight
         self.resultFontSize = PopBarPreferences.resultFontSize
         self.style = PopBarPreferences.style
+        self.capsuleMaterial = PopBarPreferences.capsuleMaterial
         self.wheelOuterRadius = PopBarPreferences.wheelOuterRadius
         self.wheelInnerRadius = PopBarPreferences.wheelInnerRadius
         self.wheelShowIcons = PopBarPreferences.wheelShowIcons
@@ -101,6 +103,12 @@ final class PopBarStore: ObservableObject {
         style = s
         PopBarPreferences.style = s
         controller.previewStyleLive()   // show/refresh the preview so the new style is visible live
+    }
+
+    func setCapsuleMaterial(_ m: CapsuleMaterial) {
+        capsuleMaterial = m
+        PopBarPreferences.capsuleMaterial = m
+        controller.previewStyleLive()   // re-show the preview in the new material
     }
 
     /// Wheel geometry / content settings (wheel + liquid-glass styles). Persisted;

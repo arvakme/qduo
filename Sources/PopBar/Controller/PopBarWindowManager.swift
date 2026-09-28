@@ -81,6 +81,12 @@ final class PopBarWindowManager {
         transient.show(text: text, url: url, source: source, anchor: placed, actions: actions)
     }
 
+    /// FORK: put a sample result in the transient window (see
+    /// `PopBarController.showPreviewResult`).
+    func previewTransientResult(_ text: String) {
+        transient.panel.applyPhase(.result(text))
+    }
+
     /// Dismiss the transient window (outside click / auto-dismiss). Pinned windows
     /// are untouched.
     func dismissTransient() {

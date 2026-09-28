@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- FORK build (scripts/build-fork.sh). Same as App.entitlements minus
+         keychain-access-groups: that entitlement is restricted and needs a
+         provisioning profile for the signing team, which a local build does not
+         have — AMFI would kill the app at launch. Without it KeychainStore falls
+         back to the login keychain (see KeychainAccessGroup.resolved). -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+</dict>
+</plist>

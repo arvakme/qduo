@@ -74,7 +74,9 @@ final class CapsuleSubmenu {
         // model: a published change reaches SwiftUI on a later pass, so measuring
         // right after it would size the window for the PREVIOUS items. A new
         // root view is laid out when it is measured.
-        hosting.rootView = CapsuleSubmenuView(items: group.children, model: model)
+        hosting.rootView = CapsuleSubmenuView(
+            items: group.children, model: model,
+            glass: PopBarPreferences.capsuleMaterial == .glass && LiquidGlassSupport.isAvailable)
         hosting.layoutSubtreeIfNeeded()
         let size = hosting.fittingSize
         panel.setContentSize(size)
@@ -134,6 +136,8 @@ final class CapsuleSubmenuModel: ObservableObject {
 struct CapsuleSubmenuView: View {
     let items: [PopBarActionConfig]
     @ObservedObject var model: CapsuleSubmenuModel
+    /// Same material as the bar it hangs from (see `View.popupChrome`).
+    var glass = false
 
     // No scroll view, on purpose: rows inside an `NSScrollView` are hit-tested
     // to AppKit subviews that do not accept the first click, and in a window
@@ -148,8 +152,7 @@ struct CapsuleSubmenuView: View {
         .padding(5)
         .frame(minWidth: 150, maxWidth: 260)
         .fixedSize()
-        .background(VisualEffectBlur(cornerRadius: 10))
-        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .popupChrome(glass: glass, cornerRadius: 10)
         .onHover { model.onHover?($0) }
     }
 

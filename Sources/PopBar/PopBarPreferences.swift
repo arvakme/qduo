@@ -14,6 +14,16 @@ enum PopBarStyle: String, CaseIterable, Hashable {
     var isWheel: Bool { self == .wheel || self == .liquidGlass }
 }
 
+/// What the rectangular popup chrome is made of — the capsule bar, its group
+/// dropdowns, and the loading / result panel every style shares. Orthogonal to
+/// `PopBarStyle` (which picks the SHAPE), so it is its own setting rather than a
+/// fourth style value. `glass` is the real system Liquid Glass on macOS 26+ and
+/// silently falls back to `classic` (the `.menu` blur) on older systems.
+enum CapsuleMaterial: String, CaseIterable, Hashable {
+    case classic
+    case glass
+}
+
 /// The popup's own persistence. App-wide prefs live in `Preferences`.
 enum PopBarPreferences {
 
@@ -23,6 +33,7 @@ enum PopBarPreferences {
         static let autoExpandHeight   = "popup.autoExpandHeight"
         static let resultFontSize     = "popup.resultFontSize"
         static let style              = "popup.style"
+        static let capsuleMaterial    = "popup.capsuleMaterial"
         static let enabled            = "popup.enabled"
         static let simulateCopy       = "popup.simulateCopy"
         static let excludedApps       = "popup.excludedApps"
@@ -76,6 +87,13 @@ enum PopBarPreferences {
     static var style: PopBarStyle {
         get { PopBarStyle(rawValue: config.string(P.style, default: "")) ?? .capsule }
         set { config.set(P.style, newValue.rawValue) }
+    }
+
+    /// Material of the rectangular chrome (capsule bar, dropdowns, result panel).
+    /// Unrecognized values fall back to `classic`, same leniency as `style`.
+    static var capsuleMaterial: CapsuleMaterial {
+        get { CapsuleMaterial(rawValue: config.string(P.capsuleMaterial, default: "")) ?? .classic }
+        set { config.set(P.capsuleMaterial, newValue.rawValue) }
     }
 
     /// Base font size for the result Markdown. Clamped to the allowed range on

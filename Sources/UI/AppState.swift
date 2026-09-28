@@ -91,6 +91,13 @@ final class AppState: ObservableObject {
                 controller.showPreview()
             }
         }
+        // FORK: same, but go on to show a sample RESULT panel — the only way to look
+        // at the result chrome (glass or classic) without running a real action.
+        if CommandLine.arguments.contains("--popbar-preview-result") {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [controller] in
+                controller.showPreviewResult()
+            }
+        }
 
         // The store was built before any of the above ran, so its snapshot of
         // "is the hotkey registered / is the popup monitoring" is from before the

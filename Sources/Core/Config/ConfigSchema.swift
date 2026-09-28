@@ -50,6 +50,11 @@ enum ConfigSchema {
               "enum": ["capsule", "wheel", "liquidGlass"],
               "description": "capsule = a bar above the selection. wheel / liquidGlass = a ring centred on the cursor."
             },
+            "capsuleMaterial": {
+              "type": "string",
+              "enum": ["classic", "glass"],
+              "description": "What the rectangular chrome is made of: the capsule bar, its group dropdowns and the result panel. classic = the frosted menu blur. glass = the system Liquid Glass (macOS 26 or later; older systems fall back to classic). Default classic."
+            },
             "autoExpandHeight": {
               "type": "boolean",
               "description": "Let a result panel grow to fit its text (up to a maximum, then scroll). Width is always fixed."

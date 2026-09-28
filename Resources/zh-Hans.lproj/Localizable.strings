@@ -62,6 +62,9 @@
 "popbar.style.wheel" = "轮盘";
 "popbar.style.liquid" = "水玻璃";
 "popbar.style.footer" = "胶囊在选区上方横向展开；轮盘 / 水玻璃以光标为圆心成环（水玻璃是明亮磨砂玻璃皮肤）。";
+"popbar.material.label" = "胶囊材质";
+"popbar.material.classic" = "经典磨砂";
+"popbar.material.glass" = "液态玻璃";
 "popbar.wheel.outer" = "外环半径";
 "popbar.wheel.inner" = "内环半径";
 "popbar.wheel.subSeam" = "二级菜单间距";

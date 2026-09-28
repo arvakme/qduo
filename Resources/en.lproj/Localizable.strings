@@ -63,6 +63,9 @@
 "popbar.style.wheel" = "Wheel";
 "popbar.style.liquid" = "Liquid";
 "popbar.style.footer" = "Capsule shows a horizontal bar above the selection; Wheel and Liquid show a ring centered on the cursor (Liquid is a bright frosted-glass skin).";
+"popbar.material.label" = "Capsule material";
+"popbar.material.classic" = "Classic";
+"popbar.material.glass" = "Liquid Glass";
 "popbar.wheel.outer" = "Outer radius";
 "popbar.wheel.inner" = "Inner radius";
 "popbar.wheel.subSeam" = "Submenu gap";

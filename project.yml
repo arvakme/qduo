@@ -21,7 +21,9 @@ name: &APP_NAME QDuo
   # be installed at once.
   bundleID: &BUNDLE_ID me.xueshi.qduo
   repoURL: &REPO_URL https://github.com/XueshiQiao/qduo
-  feedURL: &FEED_URL https://github.com/XueshiQiao/qduo/releases/latest/download/appcast.xml
+  # FORK: no feed. Upstream's appcast would "update" this personal build back to
+  # the official release. See UpdateController.updatesDisabledInFork.
+  feedURL: &FEED_URL ""
 
 options:
   bundleIdPrefix: me.xueshi
@@ -72,7 +74,9 @@ targets:
         BRAND_KEYCHAIN_GROUP: me.xueshi.qduo.keychain
 
         INFOPLIST_FILE: Supporting/Info.plist
-        CODE_SIGN_ENTITLEMENTS: Supporting/App.entitlements
+        # FORK: local builds have no provisioning profile for the restricted
+        # keychain-access-groups entitlement; see Supporting/App-fork.entitlements.
+        CODE_SIGN_ENTITLEMENTS: Supporting/App-fork.entitlements
         ENABLE_HARDENED_RUNTIME: YES
         # CalVer (YY.MM.<build>), matching the sibling apps. Both fields are
         # written by scripts/bump-version.sh at release time — don't hand-edit.
